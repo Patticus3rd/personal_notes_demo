@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import {connect} from 'react-redux';
-import {getNotes, saveNote} from '../actions/notesActions';
-
+import {getNotes, saveNote, deleteNote} from '../actions/notesActions';
+import NoteCard from './NoteCard';
 
 class App extends Component {
   constructor(props){
@@ -46,10 +46,12 @@ class App extends Component {
   displayNotes(){
     return _.map(this.props.notes, (note, key) => {
       return (
-        <div key="key">
+        <NoteCard key={key}>
           <h2>{note.title}</h2>
           <p>{note.body}</p>
-        </div>
+          <button className='btn btn-danger btn-xs' 
+            onClick={()=>this.props.deleteNote(key)}>X</button>
+        </NoteCard>
       )
     })
   }
@@ -104,4 +106,4 @@ function mapStateToProps(state, ownProps){
   }
 }
 
-export default connect(mapStateToProps, {getNotes, saveNote}) (App);
+export default connect(mapStateToProps, {getNotes, saveNote, deleteNote}) (App);
