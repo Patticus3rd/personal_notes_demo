@@ -1,5 +1,5 @@
 import { auth, googleProvider } from '../firebase';
-import { GET_USER } from '../actionTypes';
+import { GET_USER, NOTES_STATUS } from '../actionTypes';
 
 
 export function getUser(){
@@ -17,3 +17,8 @@ export function getUser(){
 export function googleLogin(){
     return dispatch => auth.signInWithPopup(googleProvider);
 }
+
+export function logout(){
+    return dispatch => auth.signOut();
+}
+
