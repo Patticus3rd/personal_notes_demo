@@ -20,10 +20,10 @@ class App extends Component {
   }
 
   // lifecycle method
-  componentDidMount(){
-    this.props.getNotes();
-    this.props.getUser();
-  }
+  // componentDidMount(){
+  //   this.props.getNotes();
+  //   this.props.getUser();
+  // }
 
   //handle submit
   handleSubmit(e){
