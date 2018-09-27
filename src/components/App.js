@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {getNotes, saveNote, deleteNote} from '../actions/notesActions';
 import NoteCard from './NoteCard';
 import { getUser } from '../actions/userActions';
+import { Link } from 'react-router-dom';
 
 class App extends Component {
   constructor(props){
@@ -49,7 +50,9 @@ class App extends Component {
     return _.map(this.props.notes, (note, key) => {
       return (
         <NoteCard key={key}>
+          <Link to={`/${key}`}>
           <h2>{note.title}</h2>
+          </Link>
           <p>{note.body}</p>
           <button className='btn btn-danger btn-xs' 
             onClick={()=>this.props.deleteNote(key)}>X</button>
@@ -93,6 +96,9 @@ class App extends Component {
                   <button className="btn btn-primary col-sm-12">Save</button>
                 </div>
               </form>
+              <br />
+              <br />
+              <br />
               {this.displayNotes()}
             </div>
           </div>

@@ -25,8 +25,11 @@ class Login extends Component {
                         style={{marginTop: '-20px'}}
                         >
                         <h1>
-                            Login
+                           Diary | {new Date().getFullYear()} Login
                         </h1>
+                        <h2>
+                            <i>Login Below</i>
+                        </h2>
                     </div>
                     <div className="center">
                         <button className="btn btn-danger btn-lg" onClick={this.props.googleLogin}>Login With Google</button> 

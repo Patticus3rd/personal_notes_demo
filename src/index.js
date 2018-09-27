@@ -12,6 +12,7 @@ import Login from "./components/Login";
 import Header from "./routes/Header";
 import Loading from "./components/Loading";
 import AuthComponent from "./components/AuthComponent";
+import NoteDetail from './components/NoteDetail';
 //create redux store
 // reducers -> actions
 
@@ -31,6 +32,7 @@ ReactDOM.render(
             <AuthComponent>
               <Header />
               <Route path="/" component={App} exact={true} />
+              <Route path="/:id" component={NoteDetail} exact={true} />
             </AuthComponent>
           </Switch>
         </div>
