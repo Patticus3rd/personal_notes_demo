@@ -31,7 +31,8 @@ class App extends Component {
     e.preventDefault();
     const note = {
       title: this.state.title,
-      body: this.state.body
+      body: this.state.body,
+      uid: this.props.user.uid
     }
     this.props.saveNote(note);
     this.setState({
@@ -54,8 +55,9 @@ class App extends Component {
           <h2>{note.title}</h2>
           </Link>
           <p>{note.body}</p>
-          <button className='btn btn-danger btn-xs' 
-            onClick={()=>this.props.deleteNote(key)}>X</button>
+          {note.uid === this.props.user.uid &&
+          (<button className='btn btn-danger btn-xs' 
+            onClick={()=>this.props.deleteNote(key)}>X</button>)}
         </NoteCard>
       )
     })
