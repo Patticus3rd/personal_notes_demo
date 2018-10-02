@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
-import _ from 'lodash';
-import {connect} from 'react-redux';
-import {getNotes, saveNote, deleteNote} from '../actions/notesActions';
-import NoteCard from './NoteCard';
-import { getUser } from '../actions/userActions';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import _ from "lodash";
+import { connect } from "react-redux";
+import { getNotes, saveNote, deleteNote } from "../actions/notesActions";
+import NoteCard from "./NoteCard";
+import { getUser } from "../actions/userActions";
+import { Link } from "react-router-dom";
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     //state
     this.state = {
-      title: '',
-      body: ''
+      title: "",
+      body: ""
     };
     //bind
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.displayNotes = this.displayNotes.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.displayNotes = this.displayNotes.bind(this);
   }
 
   // lifecycle method
@@ -27,42 +27,54 @@ class App extends Component {
   // }
 
   //handle submit
-  handleSubmit(e){
+  handleSubmit(e) {
     e.preventDefault();
     const note = {
       title: this.state.title,
       body: this.state.body,
       uid: this.props.user.uid
-    }
+    };
     this.props.saveNote(note);
     this.setState({
-      title: '',
-      body: ''
-    })
+      title: "",
+      body: ""
+    });
   }
 
-  handleChange(e){
+  handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
-    })
+    });
   }
 
-  displayNotes(){
+  displayNotes() {
     return _.map(this.props.notes, (note, key) => {
       return (
         <NoteCard key={key}>
           <Link to={`/${key}`}>
-          <h2>{note.title}</h2>
+            <h2>{note.title}</h2>
           </Link>
           <p>{note.body}</p>
-          {note.uid === this.props.user.uid &&
-          (<button className='btn btn-danger btn-xs' 
-            onClick={()=>this.props.deleteNote(key)}>X</button>)}
+          {note.uid === this.props.user.uid && (
+            <div>
+              <button
+                className="btn btn-danger btn-xs"
+                onClick={() => this.props.deleteNote(key)}
+              >
+                X
+              </button>
+              <button
+                className="btn btn-info pull-right  btn-xs"
+                onClick={() => this.props.deleteNote(key)}
+              >
+                <Link to={`/${key}/edit`}> Update </Link>
+              </button>
+            </div>
+          )}
         </NoteCard>
-      )
-    })
+      );
+    });
   }
-
 
   render() {
     return (
@@ -72,27 +84,27 @@ class App extends Component {
             <div className="col-sm-6 col-sm-offset-3">
               <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
-                  <input 
+                  <input
                     onChange={this.handleChange}
                     value={this.state.title}
-                    type="text" 
-                    name="title" 
-                    className="form-control no-border" 
-                    placeholder="Title" 
+                    type="text"
+                    name="title"
+                    className="form-control no-border"
+                    placeholder="Title"
                     required
-                    />
+                  />
                 </div>
 
                 <div className="form-group">
-                  <input 
+                  <input
                     onChange={this.handleChange}
                     value={this.state.body}
-                    type="text" 
-                    name="body" 
-                    className="form-control no-border" 
-                    placeholder="Body" 
+                    type="text"
+                    name="body"
+                    className="form-control no-border"
+                    placeholder="Body"
                     required
-                    />
+                  />
                 </div>
                 <div className="form-group">
                   <button className="btn btn-primary col-sm-12">Save</button>
@@ -110,11 +122,14 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps){
+function mapStateToProps(state, ownProps) {
   return {
     notes: state.notes,
     user: state.user
-  }
+  };
 }
 
-export default connect(mapStateToProps, {getNotes, saveNote, deleteNote, getUser}) (App);
+export default connect(
+  mapStateToProps,
+  { getNotes, saveNote, deleteNote, getUser }
+)(App);
